@@ -1,28 +1,42 @@
 %{
-#include "y.tab.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int yylex();
+void yyerror(const char *s) { fprintf(stderr, "%s\n", s); }
 %}
 
-%%
-
-[a-zA-Z]+ {
-    yylval.str = strdup(yytext); 
-    return ID;
+%union {
+    char* str;
 }
 
-[\n]      return NEWLINE;
-
-"+"       return '+';
-"-"       return '-';
-"*"       return '*';
-"/"       return '/';
-"("       return '(';
-")"       return ')';
-
-[ \t]     ;
+%token <str> ID
+%left '+' '-'
+%left '*' '/'
+%token NEWLINE
 
 %%
 
-int yywrap() {
-    return 1;
+input:
+  | input line
+  ;
+
+line:
+    expr NEWLINE { printf("\n"); }
+  ;
+
+expr:
+    expr '+' expr { printf("+ "); }
+  | expr '-' expr { printf("- "); }
+  | expr '*' expr { printf("* "); }
+  | expr '/' expr { printf("/ "); }
+  | ID           { printf("%s ", $1); free($1); }
+  ;
+
+%%
+
+int main() {
+    return yyparse();
 }
 

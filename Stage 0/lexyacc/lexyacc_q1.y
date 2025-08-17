@@ -1,20 +1,48 @@
 %{
-#include "y.tab.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+int yylex(void);
+void yyerror(const char *s);
 %}
 
-%%
-
-[a-zA-Z]          { yylval.c = yytext[0]; return ID; }
-[()+\-*/]         { return yytext[0]; }
-[\n]              { return NEWLINE; }
-[ \t]             ;  
-
-.                 { printf("Unknown character: %s\n", yytext); }
-
-%%
-
-int yywrap() {
-    return 1;
+%union{
+    char c;
 }
 
+%token <c> ID
+%token NEWLINE
+
+%left '+' '-'
+%left '*' '/'
+
+%%
+
+input
+    : 
+    | input line
+    ;
+
+line
+    : expr NEWLINE  { putchar('\n'); }
+    ;
+
+expr
+    : expr '+' expr   { putchar('+'); }
+    | expr '-' expr   { putchar('-'); }
+    | expr '*' expr   { putchar('*'); }
+    | expr '/' expr   { putchar('/'); }
+    | '(' expr ')'    {}
+    | ID              { putchar($1); }
+    ;
+
+%%
+
+void yyerror(const char *s) {
+    fprintf(stderr, "parse error: %s\n", s);
+}
+
+int main(void) {
+    return yyparse();
+}
 
