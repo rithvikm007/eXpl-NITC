@@ -2,7 +2,7 @@
  #include <stdlib.h>
  #include <stdio.h>
  #include "y.tab.h"
- #include "task1.h"
+ #include "task2.h"
 
  int number;
 

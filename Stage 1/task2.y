@@ -1,8 +1,8 @@
 %{
  #include <stdlib.h>
  #include <stdio.h>
- #include "task1.h"
- #include "task1.c"
+ #include "task2.h"
+ #include "task2.c"
  int yylex(void);
 %}
 
