@@ -18,7 +18,7 @@
 %%
 
 program : expr END {
-    $$ = $2;
+    $$ = $1;
     printf("Answer : %d\n",evaluate($1));
 
     exit(1);
