@@ -1,0 +1,10 @@
+begin
+    s=0;
+    read(a);
+    while(a!=0) do
+    	s=s+a;
+    	read(a);
+    endwhile;
+    write(s);
+end
+
