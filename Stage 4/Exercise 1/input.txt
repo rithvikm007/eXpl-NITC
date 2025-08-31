@@ -1,0 +1,62 @@
+decl
+    int a[2][2], b[2][2], p[2][2];
+    int i, j, k;
+enddecl
+begin
+    i = 0;
+    write("Enter a:");
+    while (i < 2) do
+        j = 0;
+        while (j < 2) do
+            read(a[i][j]);
+            j = j + 1;
+        endwhile;
+        i = i + 1;
+    endwhile;
+	
+	write("Enter b:");
+    i = 0;
+    while (i < 2) do
+        j = 0;
+        while (j < 2) do
+            read(b[i][j]);
+            j = j + 1;
+        endwhile;
+        i = i + 1;
+    endwhile;
+
+    i = 0;
+    while (i < 2) do
+        j = 0;
+        while (j < 2) do
+            p[i][j] = 0;
+            j = j + 1;
+        endwhile;
+        i = i + 1;
+    endwhile;
+
+    i = 0;
+    while (i < 2) do
+        j = 0;
+        while (j < 2) do
+            k = 0;
+            while (k < 2) do
+                p[i][j] = p[i][j] + a[i][k] * b[k][j];
+                k = k + 1;
+            endwhile;
+            j = j + 1;
+        endwhile;
+        i = i + 1;
+    endwhile;
+
+    write("Product:");
+    i = 0;
+    while (i < 2) do
+        j = 0;
+        while (j < 2) do
+            write(p[i][j]);
+            j = j + 1;
+        endwhile;
+        i = i + 1;
+    endwhile;
+end
